@@ -127,3 +127,23 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+*.db
+.idea/
+.vscode/
+
+
+# Alembic
+*.pyc
+*.pyo
+/build/
+/docs/build/output/
+*.orig
+alembic.ini
+*.egg-info
+.tox
+*.patch
+/scratch
+/scratch_test_*
+/test_schema.db
+/docs/build/_build/
