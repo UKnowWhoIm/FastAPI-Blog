@@ -14,6 +14,7 @@ class PostCreate(PostBase):
 class Post(PostBase):
     uid: int
     timestamp: datetime
+    author_uid: int
 
     class Config:
         orm_mode = True

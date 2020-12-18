@@ -10,3 +10,4 @@ class User(Base):
     email = Column(String, unique=True)
     password = Column(String)
     is_active = Column(Boolean, default=True)
+    posts = relationship("app.posts.models.Post", back_populates="author")

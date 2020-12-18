@@ -1,5 +1,5 @@
 from ..db.database import Base
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 
 
@@ -9,3 +9,5 @@ class Post(Base):
     title = Column(String)
     time_stamp = Column(DateTime)
     content = Column(String)
+    author_uid = Column(Integer, ForeignKey("users.uid"))
+    author = relationship("app.auth.models.User", back_populates="posts")
