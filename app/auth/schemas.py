@@ -2,6 +2,7 @@ from typing import List
 from pydantic import BaseModel
 from app.posts.schemas import Post
 
+
 class UserBase(BaseModel):
     email: str
 
@@ -17,3 +18,5 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
