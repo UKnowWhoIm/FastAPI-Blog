@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 from app.posts.schemas import Post
 
@@ -9,6 +9,11 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+
+
+class UserUpdate(BaseModel):
+    email: Optional[str]
+    password: Optional[str]
 
 
 class User(UserBase):

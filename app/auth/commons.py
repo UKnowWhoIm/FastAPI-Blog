@@ -3,9 +3,10 @@ from typing import Optional
 from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError
 from pydantic import BaseModel
-from sqlalchemy.testing import db
-from . import models
+from sqlalchemy.orm import Session
+
 from app.commons import oauth2_scheme, SECRET_KEY
+from . import models
 
 ALGORITHM = "HS256"
 
@@ -19,13 +20,12 @@ class TokenData(BaseModel):
     username: Optional[str] = None
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)):
+async def get_current_user(db: Session, token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    print(token)
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
