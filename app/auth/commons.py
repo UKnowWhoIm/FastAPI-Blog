@@ -1,5 +1,4 @@
 from typing import Optional
-
 from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError
 from pydantic import BaseModel
@@ -7,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.commons import oauth2_scheme, SECRET_KEY
 from . import models
+from ..db.database import get_db
 
 ALGORITHM = "HS256"
 
@@ -20,7 +20,7 @@ class TokenData(BaseModel):
     username: Optional[str] = None
 
 
-async def get_current_user(db: Session, token: str = Depends(oauth2_scheme)):
+async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
